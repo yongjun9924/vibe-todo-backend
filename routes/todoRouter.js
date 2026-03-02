@@ -62,4 +62,22 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+// 할일 삭제 DELETE /api/todos/:id
+router.delete("/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.isValidObjectId(id)) {
+      return res.status(400).json({ error: "올바른 할일 ID가 아닙니다." });
+    }
+    const todo = await Todo.findByIdAndDelete(id);
+    if (!todo) {
+      return res.status(404).json({ error: "해당 할일을 찾을 수 없습니다." });
+    }
+    res.status(204).send();
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "할일 삭제에 실패했습니다." });
+  }
+});
+
 module.exports = router;
