@@ -1,0 +1,7 @@
+{
+  "name": "todo-backend",
+  "private": true,
+  "scripts": {
+    "start": "node code/index.js"
+  }
+}
